@@ -1094,7 +1094,7 @@
             <field name="name">img_odoo9_verticalmedical</field>
             <field name="type_id" ref="apptype_odoo"/>
             <field name="current_version">9.0</field>
-            <field name="parent_from">mohssinbouktaib/verticalmedical9</field>
+            <field name="parent_from">amrani1insaf/vertical-medical</field>
             <field name="parent_id"/>
             <field name="dockerfile"/>
         </record>
