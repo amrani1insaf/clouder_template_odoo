@@ -1090,7 +1090,7 @@
             <field name="default_image_id" ref="image_odoo_ssh"/>
             <field name="sequence">4</field>
        </record>
-	        <record id="image_odoo9_verticalmedical" model="clouder.image">
+	 <record id="image_odoo9_verticalmedical" model="clouder.image">
             <field name="name">img_odoo9_verticalmedical</field>
             <field name="type_id" ref="apptype_odoo"/>
             <field name="current_version">9.0</field>
@@ -1201,7 +1201,7 @@
             <field name="code">exec</field>
             <field name="type_id" ref="apptype_odoo"/>
             <field name="parent_id" ref="app_odoo9_verticalmedical"/>
-            <field name="default_image_id" ref="image_odoo_clouder_exec"/>
+            <field name="default_image_id" ref="image_odoo_exec"/>
             <field name="sequence">3</field>
             <field name="required" eval="True"/>
         </record>
