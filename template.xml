@@ -950,6 +950,146 @@
             <field name="default_image_id" ref="image_odoo_ssh"/>
             <field name="sequence">4</field>
        </record>
+       <record id="image_odoo_verticalmedical" model="clouder.image">
+            <field name="name">image_odoo_verticalmedical</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="current_version">8.0</field>
+            <field name="parent_from">mohssinbouktaib/vertictalmedical</field>
+            <field name="parent_id"/>
+            <field name="dockerfile"/>
+        </record>
+	
+    	<record id="image_odoo_verticalmedical_volume_files" model="clouder.image.volume">
+            <field name="image_id" ref="image_odoo_verticalmedical"/>
+            <field name="name">/opt/odoo/files</field>
+            <field name="nosave" eval="True"/>
+        </record>		
+        <record id="app_odoo_verticalmedical" model="clouder.application">
+            <field name="name">OdooVerticalMedical</field>
+            <field name="code">odooverticalmedical</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="base" eval="True"/>
+            <field name="current_version">8.0</field>
+        </record>
+        <record id="app_odoo_verticalmedical_link_bind" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_bind.app_bind"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_link_proxy" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_proxy.app_proxy"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_link_piwik" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="clouder_template_piwik.app_piwik"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_option_install_modules" model="clouder.application.option">
+            <field name="application_id" ref="app_odoo_verticalmedical"/>
+            <field name="name" ref="apptype_odoo_option_install_modules"/>
+            <field name="value">clouder</field>
+        </record>
+
+        <record id="app_odoo_verticalmedical_data" model="clouder.application">
+            <field name="name">VerticalMedical Data</field>
+            <field name="code">data</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticalmedical"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="sequence">1</field>
+            <field name="required" eval="True"/>
+            <field name="autosave" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_data_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical_data"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="container" eval="True"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_data_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical_data"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticalmedical_files" model="clouder.application">
+            <field name="name">VerticalMedical Files</field>
+            <field name="code">files</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticalmedical"/>
+            <field name="default_image_id" ref="image_odoo_verticalmedical"/>
+            <field name="sequence">2</field>
+            <field name="required" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticalmedical_exec" model="clouder.application">
+            <field name="name">VerticalMedical Exec</field>
+            <field name="code">exec</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticalmedical"/>
+            <field name="default_image_id" ref="image_odoo_exec"/>
+            <field name="sequence">3</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_exec_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical_exec"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_verticalmedical_exec_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticalmedical_exec"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticalmedical_ssh" model="clouder.application">
+            <field name="name">VerticalMedical SSH</field>
+            <field name="code">ssh</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticalmedical"/>
+            <field name="default_image_id" ref="image_odoo_ssh"/>
+            <field name="sequence">4</field>
+        </record>
+        
 	 <record id="image_odoo9_verticalmedical" model="clouder.image">
             <field name="name">img_odoo9_verticalmedical</field>
             <field name="type_id" ref="apptype_odoo"/>
@@ -1088,6 +1228,146 @@
             <field name="default_image_id" ref="image_odoo_ssh"/>
             <field name="sequence">4</field>
         </record>
+        
+        <record id="image_odoo_verticaleducation" model="clouder.image">
+            <field name="name">img_odoo_verticaleducation</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="current_version">8.0</field>
+            <field name="parent_from">mohssinbouktaib/verticaleducation8</field>
+            <field name="parent_id"/>
+            <field name="dockerfile"/>
+        </record>
+        <record id="image_odoo_verticaleducation_volume_files" model="clouder.image.volume">
+            <field name="image_id" ref="image_odoo_verticaleducation"/>
+            <field name="name">/opt/odoo/files</field>
+            <field name="nosave" eval="True"/>
+        </record>
+
+	<record id="app_odoo_verticaleducation" model="clouder.application">
+            <field name="name">VerticalEducation 8</field>
+            <field name="code">verticaleducation8</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="base" eval="True"/>
+            <field name="current_version">8.0</field>
+        </record>
+        <record id="app_odoo_verticaleducation_link_bind" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_bind.app_bind"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_link_proxy" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_proxy.app_proxy"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_link_piwik" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="clouder_template_piwik.app_piwik"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_option_install_modules" model="clouder.application.option">
+            <field name="application_id" ref="app_odoo_verticaleducation"/>
+            <field name="name" ref="apptype_odoo_option_install_modules"/>
+        </record>
+
+        <record id="app_odoo_verticaleducation_data" model="clouder.application">
+            <field name="name">VerticalEducation 8 Data</field>
+            <field name="code">data</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticaleducation"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="sequence">1</field>
+            <field name="required" eval="True"/>
+            <field name="autosave" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_data_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation_data"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="container" eval="True"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_data_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation_data"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticaleducation_files" model="clouder.application">
+            <field name="name">VerticalEducation 8 Files</field>
+            <field name="code">files</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticaleducation"/>
+            <field name="default_image_id" ref="image_odoo_verticaleducation"/>
+            <field name="sequence">2</field>
+            <field name="required" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticaleducation_exec" model="clouder.application">
+            <field name="name">VerticalEducation 8 Exec</field>
+            <field name="code">exec</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_verticaleducation"/>
+            <field name="default_image_id" ref="image_odoo_exec"/>
+            <field name="sequence">3</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_exec_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation_exec"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_verticaleducation_exec_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_verticaleducation_exec"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+
+        <record id="app_odoo_verticaleducation_ssh" model="clouder.application">
+            <field name="name">VerticalEducation 8 SSH</field>
+            <field name="code">ssh</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo8_verticaleducation"/>
+            <field name="default_image_id" ref="image_odoo_ssh"/>
+            <field name="sequence">4</field>
+        </record>
+        
 	<record id="image_odoo9_verticaleducation" model="clouder.image">
             <field name="name">img_odoo9_verticaleducation</field>
             <field name="type_id" ref="apptype_odoo"/>
@@ -1226,6 +1506,146 @@
             <field name="default_image_id" ref="image_odoo_ssh"/>
             <field name="sequence">4</field>
         </record>
+        
+        <record id="image_odoo_hotelmgmnt" model="clouder.image">
+            <field name="name">img_odoo_hotelmgmnt</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="current_version">8.0</field>
+            <field name="parent_from">mohssinbouktaib/hotelmngmnt</field>
+            <field name="parent_id"/>
+            <field name="dockerfile"/>
+        </record>
+        <record id="image_odoo_hotelmgmnt_volume_files" model="clouder.image.volume">
+            <field name="image_id" ref="image_odoo_hotelmgmnt"/>
+            <field name="name">/opt/odoo/files</field>
+            <field name="nosave" eval="True"/>
+        </record>
+
+	<record id="app_odoo_hotelmgmnt" model="clouder.application">
+            <field name="name">HotelMgmnt 8</field>
+            <field name="code">hotelmgmnt8</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="base" eval="True"/>
+            <field name="current_version">8.0</field>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_bind" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_bind.app_bind"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_proxy" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_proxy.app_proxy"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_link_piwik" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="clouder_template_piwik.app_piwik"/>
+            <field name="base" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_option_install_modules" model="clouder.application.option">
+            <field name="application_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="name" ref="apptype_odoo_option_install_modules"/>
+        </record>
+
+        <record id="app_odoo_hotelmgmnt_data" model="clouder.application">
+            <field name="name">HotelMgmnt 8 Data</field>
+            <field name="code">data</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="default_image_id" ref="image_odoo_data"/>
+            <field name="sequence">1</field>
+            <field name="required" eval="True"/>
+            <field name="autosave" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_data_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt_data"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="container" eval="True"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_data_link_shinken" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt_data"/>
+            <field name="name" ref="clouder_template_shinken.app_shinken"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="container" eval="True"/>
+        </record>
+
+        <record id="app_odoo_hotelmgmnt_files" model="clouder.application">
+            <field name="name">HotelMgmnt 8 Files</field>
+            <field name="code">files</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="default_image_id" ref="image_odoo_hotelmgmnt"/>
+            <field name="sequence">2</field>
+            <field name="required" eval="True"/>
+        </record>
+
+        <record id="app_odoo_hotelmgmnt_exec" model="clouder.application">
+            <field name="name">HotelMgmnt 8 Exec</field>
+            <field name="code">exec</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="default_image_id" ref="image_odoo_exec"/>
+            <field name="sequence">3</field>
+            <field name="required" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_exec_link_postgres" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt_exec"/>
+            <field name="name" ref="clouder_template_postgres.app_postgres"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+        <record id="app_odoo_hotelmgmnt_exec_link_postfix" model="clouder.application.link">
+            <field name="application_id" ref="app_odoo_hotelmgmnt_exec"/>
+            <field name="name" ref="clouder_template_postfix.app_postfix"/>
+            <field name="required" eval="True"/>
+            <field name="auto" eval="True"/>
+            <field name="make_link" eval="True"/>
+        </record>
+
+        <record id="app_odoo_hotelmgmnt_ssh" model="clouder.application">
+            <field name="name">HotelMgmnt 8 SSH</field>
+            <field name="code">ssh</field>
+            <field name="type_id" ref="apptype_odoo"/>
+            <field name="parent_id" ref="app_odoo_hotelmgmnt"/>
+            <field name="default_image_id" ref="image_odoo_ssh"/>
+            <field name="sequence">4</field>
+        </record>
+        
         <record id="image_odoo9_hotelmgmnt" model="clouder.image">
             <field name="name">img_odoo9_hotelmgmnt</field>
             <field name="type_id" ref="apptype_odoo"/>
